@@ -20,6 +20,10 @@ class FeedViewModel extends BaseViewModel {
       await videoSource!.listVideos[index].loadController();
     }
     videoSource!.listVideos[index].controller!.play();
+    videoSource!.listVideos[index].controller!.addListener(() {
+      print(
+          'controller pos: ${videoSource!.listVideos[index].controller!.value.position}');
+    });
     //videoSource.listVideos[prevVideo].controller.removeListener(() {});
 
     if (videoSource!.listVideos[prevVideo].controller != null)
@@ -31,7 +35,8 @@ class FeedViewModel extends BaseViewModel {
     print(index);
   }
 
-  void loadVideo(int index) async {
+  Future<void> loadVideo(int index) async {
+    await Future.delayed(Duration(seconds: 2));
     if (videoSource!.listVideos.length > index) {
       await videoSource!.listVideos[index].loadController();
       videoSource!.listVideos[index].controller?.play();
@@ -41,11 +46,6 @@ class FeedViewModel extends BaseViewModel {
 
   void setActualScreen(index) {
     actualScreen = index;
-    if (index == 0) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    }
     notifyListeners();
   }
 }

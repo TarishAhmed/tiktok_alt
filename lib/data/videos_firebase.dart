@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:tiktok_alt/data/video.dart';
 import 'package:tiktok_alt/data/demo_data.dart';
 
 class VideosAPI {
   List<Video> listVideos = <Video>[];
 
+
   VideosAPI() {
     load();
   }
 
-  void load() async {
+  Future<void> load() async {
     listVideos = await getVideoList();
   }
 

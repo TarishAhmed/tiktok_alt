@@ -5,9 +5,6 @@ class Video {
   String user;
   String userPic;
   String videoTitle;
-  String songName;
-  String likes;
-  String comments;
   String url;
 
   VideoPlayerController? controller;
@@ -17,9 +14,6 @@ class Video {
       required this.user,
       required this.userPic,
       required this.videoTitle,
-      required this.songName,
-      required this.likes,
-      required this.comments,
       required this.url});
 
   Video.fromJson(Map<dynamic, dynamic> json)
@@ -27,9 +21,6 @@ class Video {
         user = json['user'],
         userPic = json['user_pic'],
         videoTitle = json['video_title'],
-        songName = json['song_name'],
-        likes = json['likes'],
-        comments = json['comments'],
         url = json['url'];
 
   Map<String, dynamic> toJson() {
@@ -38,16 +29,13 @@ class Video {
     data['user'] = this.user;
     data['user_pic'] = this.userPic;
     data['video_title'] = this.videoTitle;
-    data['song_name'] = this.songName;
-    data['likes'] = this.likes;
-    data['comments'] = this.comments;
     data['url'] = this.url;
     return data;
   }
 
   Future<Null> loadController() async {
     controller = VideoPlayerController.network(url);
-    await controller?.initialize();
-    controller?.setLooping(true);
+    await controller!.initialize();
+    controller!.setLooping(true);
   }
 }
